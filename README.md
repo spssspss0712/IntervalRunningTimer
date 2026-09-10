@@ -1,26 +1,66 @@
-# 间歇跑步计时器
+# Interval Running Timer
 
-这是一个简单的间歇跑步计时器应用，使用React和Next.js构建。
+An eyes-free interval timer for run/walk training — you never have to look at your
+phone to know which phase you're in.
 
-## 功能
+**[Live demo](https://interval-running-timer.vercel.app)**
 
-- 设置跑步和走路时间
-- 音效提示切换阶段
-- 可视化倒计时
+![Interval Running Timer counting down a run phase](https://github.com/user-attachments/assets/c65ae031-627f-415d-a00c-2a6b77f936c7)
 
-## 安装
 
-1. 克隆仓库
-2. 运行 `npm install` 安装依赖
-3. 运行 `npm run dev` 启动开发服务器
+## Why I Built This
 
-## 使用
+I started running with my daughter in the mornings. She couldn't run the whole
+distance yet, so we agreed to alternate — run a stretch, walk a stretch. The problem
+was that neither of us wanted to keep checking a phone mid-run, and without checking
+we had no idea how far into a phase we were.
 
-访问 `http://localhost:3000` 来使用应用。
+I looked for an existing interval timer and couldn't find one that was simple, free,
+and did just this. So I built one.
 
-## 部署
+## What I Got Wrong the First Time
 
-这个项目可以轻松部署到Vercel平台。
+The first version played a sound only at each transition — one cue when the run
+started, one when it ended.
 
-## 截图
-<img width="455" height="424" alt="Screenshot 2026-09-09 at 10 02 37 PM" src="https://github.com/user-attachments/assets/e33bc79a-906b-4a17-bc8b-fe64d021fcb5" />
+It didn't work. My daughter would hear the cue, start running, and then stop a few
+seconds later. When I told her the interval wasn't over, she'd ask "how much longer?"
+
+The problem was that a transition-only cue tells you when something *changes* but
+nothing about the state you're *in*. Silence was ambiguous: it could mean "still
+running" or "you're done," and she had no way to tell them apart without looking at
+the screen — which was the one thing the timer was supposed to avoid.
+
+## The Redesign
+
+We worked out the fix together:
+
+- **During the run phase**, a low tone repeats once per second for the whole
+  interval. The signal now means "keep going," and its *absence* is the cue to stop —
+  one sound carries both messages.
+- **In the last three seconds of the walk phase**, a higher tone counts down, so the
+  next run arrives with a warning instead of as a surprise.
+- We tested several pitches to find ones a child hears clearly outdoors without
+  finding them harsh.
+
+The real change was going from an *event* signal to a *state* signal. That removed
+the "how much longer?" question entirely — the sound answers it continuously.
+
+## Features
+
+- Configurable run and walk durations
+- Continuous audio cue through the run phase; a three-second warning before it starts
+- Visual countdown for when you do want to look
+
+## Tech Stack
+
+- React
+- Next.js
+- Deployed on Vercel
+
+## Run Locally
+
+1. Clone the repository
+2. `npm install`
+3. `npm run dev`
+4. Open `http://localhost:3000`
