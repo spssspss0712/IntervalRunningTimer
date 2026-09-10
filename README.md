@@ -21,3 +21,6 @@
 ## 部署
 
 这个项目可以轻松部署到Vercel平台。
+
+## 截图
+<img width="455" height="424" alt="Screenshot 2026-09-09 at 10 02 37 PM" src="https://github.com/user-attachments/assets/e33bc79a-906b-4a17-bc8b-fe64d021fcb5" />
